@@ -5,27 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
     
 	<h1>Simulador de stock de accesorios para damas</h1>
 
-	<p>selecciona la categoría de accesorios:</p>
-	<select id="categoria">
-		<option value="anillos">Anillos</option>
-		<option value="collares">Collares</option>
-		<option value="pulseras">Pulseras</option>
-	</select>
-
-	<p>Ingresa la cantidad de accesorios que deseas agregar al stock:</p>
-	<input type="number" id="cantidad" min="1">
-
-	<button onclick="agregarAccesorios()">Agregar Accesorios</button>
-
-	<p>El stock actual de accesorios para damas es:</p>
-	<ul id="stock"></ul>
-
-    <script src="java.js"></script>
+	<div>
+		<label for="categoria">Categoría:</label>
+		<select id="categoria">
+		  <option value="anillos">Anillos</option>
+		  <option value="collares">Collares</option>
+		  <option value="pulseras">Pulseras</option>
+		</select>
+	  </div>
+	
+	  <div>
+		<label for="cantidad">Cantidad:</label>
+		<input type="number" id="cantidad" min="1" value="1">
+	  </div>
+	
+	  <div>
+		<button onclick="agregarAccesorios()">Agregar Accesorios</button>
+	  </div>
+	
+	  <div id="stock"></div>
+  
+	<script src="java.js"></script>
 
 </body>
 </html>

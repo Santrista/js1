@@ -1,97 +1,78 @@
 
 
 
-/* variable que almacenara el stock de accesorios
- */		let stockDeAccesorios = {
-			anillos: [],
-			collares: [],
-			pulseras: [],
-		};
+class Accesorio {
+	constructor(nombre, color, categoria) {
+	  this.nombre = nombre;
+	  this.color = color;
+	  this.categoria = categoria;
+	}
 
-/* funcion para agregar accesorios al stock
- */		function agregarAccesorios() {
-/* obtiene la categoria seleccionada por el usuario
-*/			let categoria = document.getElementById("categoria").value;
+	eliminar() {
+	  let categoria = this.categoria;
+	  let index = stockDeAccesorios[categoria].indexOf(this);
+	  if (index !== -1) {
+		stockDeAccesorios[categoria].splice(index, 1);
+		actualizarStock();
+	  }
+	}
+  }
 
-/* obtiene la cantidad de accesorios ingresada por el usuario
- */			let cantidad = document.getElementById("cantidad").value;
+  let stockDeAccesorios = {
+	anillos: [],
+	collares: [],
+	pulseras: [],
+  };
 
-/* valida que se haya ingresado una cantidad valida
- */			if (cantidad > 0) {
-/* agrega la cantidad de accesorios al stock de la categoria seleccionada
- */				for (let i = 0; i < cantidad; i++) {
-					stockDeAccesorios[categoria].push("accesorio " + (i + 1));
-				}
+  function agregarAccesorios() {
+	let categoria = document.getElementById("categoria").value;
+	let cantidad = document.getElementById("cantidad").value;
 
-/* actualiza la lista del stock en la pagina
- */				actualizarStock();
-			} else {
-				alert("Ingresa una cantidad válida de accesorios.");
-			}
-		}
+	if (cantidad > 0) {
+	  for (let i = 0; i < cantidad; i++) {
+		let color = prompt("Ingresa el color del accesorio");
 
-/* funcion para actualizar la lista del stock en la pagina
- */		function actualizarStock() {
-/* obtiene la lista del stock en la pagina
- */			let listaStock = document.getElementById("stock");
+		let nuevoAccesorio = new Accesorio("accesorio " + (i + 1), color, categoria);
+		stockDeAccesorios[categoria].push(nuevoAccesorio);
+	  }
 
-/* vacia la lista actual
- */			listaStock.innerHTML = "";
+	  actualizarStock();
+	} else {
+	  alert("Ingresa una cantidad válida de accesorios.");
+	}
+  }
 
-/* agrega cada accesorio del stock a la lista
- */			for (let categoria in stockDeAccesorios) {
-				let listaCategoria = document.createElement("ul");
-				let tituloCategoria = document.createElement("h2");
-				tituloCategoria.textContent = categoria.toUpperCase();
-				listaCategoria.appendChild(tituloCategoria);
+  function crearElementosStock() {
+	let listaStock = document.getElementById("stock");
+	listaStock.innerHTML = "";
 
-				for (let i = 0; i < stockDeAccesorios[categoria].length; i++) {
-					let li = document.createElement("li");
-					li.textContent = stockDeAccesorios[categoria][i];
-					listaCategoria.appendChild(li);
-				}
+	for (let categoria in stockDeAccesorios) {
+	  let listaCategoria = document.createElement("ul");
+	  let tituloCategoria = document.createElement("h2");
+	  tituloCategoria.textContent = categoria.toUpperCase();
+	  listaCategoria.appendChild(tituloCategoria);
 
-				listaStock.appendChild(listaCategoria);
-			}
-		}
+	  stockDeAccesorios[categoria].forEach(accesorio => {
+		let li = document.createElement("li");
+		li.textContent = accesorio.nombre + " - Color: " + accesorio.color;
 
-		/* OPCION DE ELIMINACION DE PRODUCTO */
+		let botonEliminar = document.createElement("button");
+		botonEliminar.textContent = "Eliminar";
+		botonEliminar.addEventListener('click', function() {
+		  accesorio.eliminar();
+		});
 
-/* funcion para eliminar un accesorio del stock
- */		function eliminarAccesorio(categoria, index) {
-			stockDeAccesorios[categoria].splice(index, 1);
-			actualizarStock();
-		}
+		li.appendChild(botonEliminar);
+		listaCategoria.appendChild(li);
+	  });
 
-/* funcion para actualizar la lista del stock en la pagina
- */		function actualizarStock() {
-/* obtiene la lista del stock en la pagina
- */			let listaStock = document.getElementById("stock");
+	  listaStock.appendChild(listaCategoria);
+	}
+  }
 
-/* vacia la lista actual
- */			listaStock.innerHTML = "";
+  function actualizarStock() {
+	crearElementosStock();
+  }
 
-/* agrega cada accesorio del stock a la lista
- */			for (let categoria in stockDeAccesorios) {
-				let listaCategoria = document.createElement("ul");
-				let tituloCategoria = document.createElement("h2");
-				tituloCategoria.textContent = categoria.toUpperCase();
-				listaCategoria.appendChild(tituloCategoria);
-
-				for (let i = 0; i < stockDeAccesorios[categoria].length; i++) {
-					let li = document.createElement("li");
-					li.textContent = stockDeAccesorios[categoria][i];
-					
-					let botonEliminar = document.createElement("button");
-					botonEliminar.textContent = "Eliminar";
-					botonEliminar.onclick = function() {
-						eliminarAccesorio(categoria, i);
-					}
-					
-					li.appendChild(botonEliminar);
-					listaCategoria.appendChild(li);
-				}
-
-				listaStock.appendChild(listaCategoria);
-			}
-		}
+  // Llamada inicial para mostrar el stock
+  actualizarStock();
