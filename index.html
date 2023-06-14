@@ -10,27 +10,32 @@
 <body>
     
 	<h1>Simulador de stock de accesorios para damas</h1>
-
-	<div>
-		<label for="categoria">Categoría:</label>
-		<select id="categoria">
-		  <option value="anillos">Anillos</option>
-		  <option value="collares">Collares</option>
-		  <option value="pulseras">Pulseras</option>
-		</select>
-	  </div>
-	
-	  <div>
-		<label for="cantidad">Cantidad:</label>
-		<input type="number" id="cantidad" min="1" value="1">
-	  </div>
-	
-	  <div>
-		<button onclick="agregarAccesorios()">Agregar Accesorios</button>
-	  </div>
-	
-	  <div id="stock"></div>
   
+	<div class="form-group">
+	  <label for="categoria">Categoría:</label>
+	  <select id="categoria">
+		<option value="anillos">Anillos</option>
+		<option value="collares">Collares</option>
+		<option value="pulseras">Pulseras</option>
+	  </select>
+	</div>
+	
+	<div class="form-group">
+	  <label for="cantidad">Cantidad:</label>
+	  <input type="number" id="cantidad" min="1">
+	</div>
+	
+	<div class="form-group">
+	  <label for="color">Color:</label>
+	  <input type="text" id="color" placeholder="Ingrese el color del accesorio">
+	</div>
+	
+	<button onclick="agregarAccesorios()">Agregar Accesorios</button>
+	
+	<p id="mensaje" style="color: red;"></p>
+	
+	<div id="stock"></div>
+
 	<script src="java.js"></script>
 
 </body>
